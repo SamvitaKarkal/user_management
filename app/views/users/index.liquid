@@ -1,0 +1,62 @@
+<style>
+  table {
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+</style>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    {{  csrf_meta_tags }}
+    {{  csp_meta_tag }}
+  </head>
+  <body>
+    <form action="/users" method="get">
+      <input type="text" name="search" placeholder="Search users...">
+      <button type="submit">Search</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Gender</th>
+          <th>Created At</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if users.size > 0 %}
+          {% for user in users %}
+            <tr>
+              <td>{{ forloop.index }}</td>
+              <td>{{ user.first_name }} {{ user.last_name }}</td>
+              <td>{{ user.age }}</td>
+              <td>{{ user.gender }}</td>
+              <td>{{ user.created_at }}</td>
+              <td>
+                <form action="/users/{{ user.id }}" method="post" class="delete-user-form">
+                  <input type="hidden" name="_method" value="delete">
+                  <input type="submit" value="Delete" data-confirm="Are you sure?">
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="6">No results found!</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+
+    <p>Total number of users: {{ user_count }}</p>
+  </body>
+</html>
