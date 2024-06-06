@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_04_184156) do
     t.datetime "date"
     t.integer "male_count"
     t.integer "female_count"
+    t.integer "male_avg_age"
+    t.integer "female_avg_age"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
