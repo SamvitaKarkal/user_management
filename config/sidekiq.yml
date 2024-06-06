@@ -1,0 +1,8 @@
+:concurrency: 5
+:queues:
+  - default
+:scheduler:
+  :schedule:
+    store_users_job:
+      cron: "0 * * * *"
+      class: "StoreUsersJob"

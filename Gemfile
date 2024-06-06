@@ -13,6 +13,9 @@ gem "redis", ">= 4.0.1"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
+gem 'httparty'
+gem 'liquid'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
@@ -20,11 +23,10 @@ end
 
 group :development do
   gem "web-console"
-
-
 end
 
 group :test do
-  gem "capybara"
-  gem "selenium-webdriver"
+  gem 'rspec-rails'
+  gem 'webmock'
+  gem 'redis-rails'
 end
