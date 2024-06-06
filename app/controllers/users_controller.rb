@@ -13,8 +13,7 @@ class UsersController < ApplicationController
       user.attributes.transform_keys(&:to_s).merge('created_at' => user.created_at)
     end
 
-    template = Liquid::Template.parse(File.read(Rails.root.join('app', 'views', 'users', 'index.liquid')))
-    render html: template.render('users' => users_data, 'user_count' => @user_count).html_safe
+    render_liquid_template({'users' => users_data, 'user_count' => @user_count}, 'users/index.liquid')
   end
 
   def destroy
