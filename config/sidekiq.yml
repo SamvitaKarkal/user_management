@@ -6,3 +6,6 @@
     store_users_job:
       cron: "0 * * * *"
       class: "StoreUsersJob"
+    store_daily_records_job:
+      cron: "59 23 * * *"
+      class: "StoreDailyRecordsJob"
