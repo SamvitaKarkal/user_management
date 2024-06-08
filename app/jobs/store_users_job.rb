@@ -3,10 +3,21 @@ class StoreUsersJob
   require 'net/http'
 
   def perform
+    users_data = fetch_user_data
+    male_count, female_count = create_users_and_count(users_data)
+    add_gender_count_to_redis(male_count, female_count)
+  end
+
+  private
+
+  def fetch_user_data
     uri = URI('https://randomuser.me/api/?results=20')
     response = Net::HTTP.get(uri)
-    users_data = JSON.parse(response)['results']
+    
+    JSON.parse(response)['results']
+  end
 
+  def create_users_and_count(users_data)
     male_count = 0
     female_count = 0
 
@@ -30,6 +41,10 @@ class StoreUsersJob
       end
     end
 
+    [male_count, female_count]
+  end
+
+  def add_gender_count_to_redis(male_count, female_count)
     $redis.set('male_count', male_count)
     $redis.set('female_count', female_count)
   end

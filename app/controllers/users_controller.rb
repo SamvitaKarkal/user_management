@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   def index
     if params[:search]
       search_query = "%#{params[:search]}%"
-      @users = User.where('first_name LIKE ? OR last_name LIKE ? OR age::text LIKE ? OR gender LIKE ? OR created_at::text LIKE ?',
-                          search_query, search_query, search_query, search_query, search_query)
+      @users = User.where('first_name LIKE ? OR last_name LIKE ? OR age::text LIKE ? OR gender LIKE ?',
+                          search_query, search_query, search_query, search_query)
     else
       @users = User.all
     end
